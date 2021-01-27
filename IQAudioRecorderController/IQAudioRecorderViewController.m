@@ -54,9 +54,6 @@
     BOOL _wasIdleTimerDisabled;
 }
 
-//BlurrView
-@property UIVisualEffectView *visualEffectView;
-
 //Playing
 @property IQPlaybackDurationView *viewPlayerDuration;
 
