@@ -24,8 +24,6 @@
 
 #import <UIKit/UIViewController.h>
 
-#import "IQAudioRecorderConstants.h"
-
 @class IQAudioCropperViewController;
 
 @protocol IQAudioCropperViewControllerDelegate <NSObject>
@@ -95,11 +93,6 @@
  Highlighted tintColor is used when playing the recorded audio file or when recording the audio file.
  */
 @property (nullable, nonatomic, strong) UIColor *highlightedTintColor;
-
-/**
- Audio format. default is IQAudioFormat_m4a.
- */
-@property(nonatomic,assign) IQAudioFormat audioFormat;
 
 @end
 

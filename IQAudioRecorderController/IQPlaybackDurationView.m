@@ -34,10 +34,6 @@
     UILabel *_labelRemainingTime;
 }
 
-- (CGSize )intrinsicContentSize {
-  return UILayoutFittingExpandedSize;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
