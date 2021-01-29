@@ -54,6 +54,9 @@
     BOOL _wasIdleTimerDisabled;
 }
 
+//BlurrView
+//@property UIVisualEffectView *visualEffectView;
+
 //Playing
 @property IQPlaybackDurationView *viewPlayerDuration;
 
@@ -276,12 +279,6 @@
             _recordingFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a",globallyUniqueString]];
 
             recordSettings[AVFormatIDKey] = @(kAudioFormatMPEG4AAC);
-        }
-        else if (self.audioFormat == IQAudioFormat_wav)
-        {
-            _recordingFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.wav",globallyUniqueString]];
-            
-            recordSettings[AVFormatIDKey] = @(kAudioFormatLinearPCM);
         }
         else if (self.audioFormat == IQAudioFormat_caf)
         {
@@ -512,6 +509,10 @@
     {
         [_audioPlayer play];
     }
+}
+
+- (void)onClickPlay {
+    [self playAction:nil];
 }
 
 - (void)playAction:(UIBarButtonItem *)item
@@ -813,7 +814,6 @@
     controller.barStyle = self.barStyle;
     controller.normalTintColor = self.normalTintColor;
     controller.highlightedTintColor = self.highlightedTintColor;
-    controller.audioFormat = self.audioFormat;
     
     if (self.blurrEnabled)
     {
