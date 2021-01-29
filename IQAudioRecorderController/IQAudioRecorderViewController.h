@@ -128,13 +128,6 @@
 
 @property(nullable, nonatomic, strong) UIVisualEffectView *visualEffectView;
 
-- (void)onClickPlay;
-- (void)onClickPause;
-- (void)onClickStop;
-- (void)onClickRecord;
-- (void)onClickStopRecording;
-- (void)onClickCancelRecording;
-
 
 @end
 
@@ -143,5 +136,12 @@
 
 - (void)presentAudioRecorderViewControllerAnimated:(nonnull IQAudioRecorderViewController *)audioRecorderViewController;
 - (void)presentBlurredAudioRecorderViewControllerAnimated:(nonnull IQAudioRecorderViewController *)audioRecorderViewController;
+
+- (void)onClickPlay;
+- (void)onClickPause;
+- (void)onClickStop;
+- (void)onClickRecord;
+- (void)onClickStopRecording;
+- (void)onClickCancelRecording;
 
 @end
