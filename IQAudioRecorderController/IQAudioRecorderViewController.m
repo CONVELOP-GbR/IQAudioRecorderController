@@ -1,4 +1,4 @@
-//
+a//
 // IQAudioRecorderController.m
 // https://github.com/hackiftekhar/IQAudioRecorderController
 // Created by Iftekhar Qurashi
@@ -54,8 +54,10 @@
     BOOL _wasIdleTimerDisabled;
 }
 
+/*
 //BlurrView
-//@property UIVisualEffectView *visualEffectView;
+@property UIVisualEffectView *visualEffectView;
+*/
 
 //Playing
 @property IQPlaybackDurationView *viewPlayerDuration;
@@ -317,6 +319,7 @@
         
         // Initiate and prepare the recorder
         _audioRecorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:_recordingFilePath] settings:recordSettings error:nil];
+        _fileName = _recordingFilePath;
         _audioRecorder.delegate = self;
         _audioRecorder.meteringEnabled = YES;
         
@@ -563,6 +566,10 @@
     }
 }
 
+- (void)onClickPause {
+    [self pausePlayingAction:nil];
+}
+
 -(void)pausePlayingAction:(UIBarButtonItem*)item
 {
     //UI Update
@@ -574,6 +581,15 @@
     
     [[AVAudioSession sharedInstance] setCategory:_oldSessionCategory error:nil];
     [UIApplication sharedApplication].idleTimerDisabled = _wasIdleTimerDisabled;
+}
+
+- (void)onClickStop {
+    if (_audioRecorder.isRecording) {
+        [self stopRecordingButtonAction:nil];
+    }
+    else {
+        [self stopPlayingButtonAction:nil];
+    }
 }
 
 -(void)stopPlayingButtonAction:(UIBarButtonItem*)item
@@ -612,6 +628,10 @@
  */
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self onClickStop];
+    });
+    
     //To update UI on stop playing
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[_stopPlayButton.target methodSignatureForSelector:_stopPlayButton.action]];
     invocation.target = _stopPlayButton.target;
@@ -620,6 +640,10 @@
 }
 
 #pragma mark - Audio Record
+
+- (void)onClickRecord {
+    [self recordingButtonAction:nil];
+}
 
 - (void)recordingButtonAction:(UIBarButtonItem *)item
 {
@@ -674,10 +698,18 @@
     [self setToolbarItems:@[_stopRecordingButton,_flexItem, _continueRecordingButton,_flexItem, _cropOrDeleteButton] animated:YES];
 }
 
+- (void)onClickStopRecording {
+    [self stopRecordingButtonAction:nil];
+}
+
 -(void)stopRecordingButtonAction:(UIBarButtonItem*)item
 {
     _isRecordingPaused = NO;
     [_audioRecorder stop];
+}
+
+- (void)onClickCancelRecording {
+    [self cancelRecordingAction:nil];
 }
 
 -(void)cancelRecordingAction:(UIBarButtonItem*)item
